@@ -14,8 +14,6 @@ const Navigation = ({ start, end, setRoute }) => {
       `https://routing.openstreetmap.de/routed-foot/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`
     );
 
-    console.log(JSON.stringify(response));
-
     const coordinates = response.data.routes[0].geometry.coordinates.map(
       (coord) => [coord[1], coord[0]]
     );

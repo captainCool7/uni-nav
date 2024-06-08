@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Map from "./Map";
-import Navigation from "./Navigation";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import MapPage from "./MapPage";
+import ARPage from "./ARPage";
 
 const App = () => {
   const [route, setRoute] = useState(null);
@@ -26,15 +27,31 @@ const App = () => {
   };
 
   return (
-    <div>
-      <Navigation start={start} end={end} setRoute={setRoute} />
-      <Map
-        route={route}
-        markers={markers}
-        onMapClick={handleMapClick}
-        clearMarkers={clearMarkers}
-      />
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <Link to="/">Map</Link>
+          <Link to="/ar">AR</Link>
+        </nav>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MapPage
+                route={route}
+                markers={markers}
+                onMapClick={handleMapClick}
+                clearMarkers={clearMarkers}
+                setRoute={setRoute}
+                start={start}
+                end={end}
+              />
+            }
+          />
+          <Route path="/ar" element={<ARPage route={route} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
