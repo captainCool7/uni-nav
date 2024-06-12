@@ -1,4 +1,5 @@
 import React from "react";
+import arObject from "./modern_arrow.obj";
 
 const ARPage = ({ route }) => {
   if (!route) {
@@ -15,12 +16,14 @@ const ARPage = ({ route }) => {
         embedded
         arjs="sourceType: webcam; debugUIEnabled: false;"
       >
-        <a-camera gps-camera rotation-reader></a-camera>
+        <a-assets>
+          <a-asset-item id="animated-asset" src={arObject}></a-asset-item>
+        </a-assets>
         {arCoordinates.map((coords, index) => (
           <a-entity
             key={index}
             gps-entity-place={`latitude: ${coords[0]}; longitude: ${coords[1]};`}
-            gltf-model="#animated-asset"
+            obj-model="obj: #animated-asset;"
             scale="5 5 5"
           >
             <a-animation
@@ -32,12 +35,11 @@ const ARPage = ({ route }) => {
             ></a-animation>
           </a-entity>
         ))}
-        <a-assets>
-          <a-asset-item
-            id="animated-asset"
-            src="../modern_arrow.obj"
-          ></a-asset-item>
-        </a-assets>
+        <a-entity
+          gps-entity-place="latitude: 53.155568280837166; longitude: 8.206813102252825;"
+          obj-model="#animated-asset"
+        ></a-entity>
+        <a-camera gps-camera rotation-reader></a-camera>
       </a-scene>
     </div>
   );
